@@ -1,125 +1,65 @@
-{
-  "nbformat": 4,
-  "nbformat_minor": 0,
-  "metadata": {
-    "colab": {
-      "provenance": [],
-      "authorship_tag": "ABX9TyO9JF9P3OcB1KUNqxQXQMed",
-      "include_colab_link": true
-    },
-    "kernelspec": {
-      "name": "python3",
-      "display_name": "Python 3"
-    },
-    "language_info": {
-      "name": "python"
-    }
-  },
-  "cells": [
-    {
-      "cell_type": "markdown",
-      "metadata": {
-        "id": "view-in-github",
-        "colab_type": "text"
-      },
-      "source": [
-        "<a href=\"https://colab.research.google.com/github/adhavanmasscoc-maker/DAA-LAB-EXRECISE/blob/main/AADHAVANK_DAA_LAB_2.ipynb\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
-      ]
-    },
-    {
-      "cell_type": "code",
-      "execution_count": 2,
-      "metadata": {
-        "colab": {
-          "base_uri": "https://localhost:8080/"
-        },
-        "id": "kdivqeLTE1AW",
-        "outputId": "60767407-b80c-4513-a65f-a8bed5316f9f"
-      },
-      "outputs": [
-        {
-          "output_type": "stream",
-          "name": "stdout",
-          "text": [
-            "Enter roll number to search: 1\n",
-            "\n",
-            "Interpolation Search\n",
-            "Position: 0\n",
-            "Probes: 1\n",
-            "\n",
-            "Binary Search\n",
-            "Position: 0\n",
-            "Probes: 13\n"
-          ]
-        }
-      ],
-      "source": [
-        "import math\n",
-        "\n",
-        "def interpolation_search(arr, target):\n",
-        "    low = 0\n",
-        "    high = len(arr) - 1\n",
-        "    probes = 0\n",
-        "\n",
-        "    while low <= high and arr[low] <= target <= arr[high]:\n",
-        "        probes += 1\n",
-        "\n",
-        "        if low == high:\n",
-        "            if arr[low] == target:\n",
-        "                return low, probes\n",
-        "            return -1, probes\n",
-        "\n",
-        "        pos = low + int(\n",
-        "            ((target - arr[low]) * (high - low))\n",
-        "            / (arr[high] - arr[low])\n",
-        "        )\n",
-        "\n",
-        "        if arr[pos] == target:\n",
-        "            return pos, probes\n",
-        "        elif arr[pos] < target:\n",
-        "            low = pos + 1\n",
-        "        else:\n",
-        "            high = pos - 1\n",
-        "\n",
-        "    return -1, probes\n",
-        "\n",
-        "\n",
-        "def binary_search(arr, target):\n",
-        "    low = 0\n",
-        "    high = len(arr) - 1\n",
-        "    probes = 0\n",
-        "\n",
-        "    while low <= high:\n",
-        "        probes += 1\n",
-        "\n",
-        "        mid = (low + high) // 2\n",
-        "\n",
-        "        if arr[mid] == target:\n",
-        "            return mid, probes\n",
-        "        elif arr[mid] < target:\n",
-        "            low = mid + 1\n",
-        "        else:\n",
-        "            high = mid - 1\n",
-        "\n",
-        "    return -1, probes\n",
-        "\n",
-        "\n",
-        "# Student roll numbers\n",
-        "roll_numbers = list(range(1, 10001))\n",
-        "\n",
-        "target = int(input(\"Enter roll number to search: \"))\n",
-        "\n",
-        "idx_i, probes_i = interpolation_search(roll_numbers, target)\n",
-        "idx_b, probes_b = binary_search(roll_numbers, target)\n",
-        "\n",
-        "print(\"\\nInterpolation Search\")\n",
-        "print(\"Position:\", idx_i)\n",
-        "print(\"Probes:\", probes_i)\n",
-        "\n",
-        "print(\"\\nBinary Search\")\n",
-        "print(\"Position:\", idx_b)\n",
-        "print(\"Probes:\", probes_b)"
-      ]
-    }
-  ]
-}
+import math
+
+def interpolation_search(arr, target):
+    low = 0
+    high = len(arr) - 1
+    probes = 0
+
+    while low <= high and arr[low] <= target <= arr[high]:
+        probes += 1
+
+        if low == high:
+            if arr[low] == target:
+                return low, probes
+            return -1, probes
+
+        pos = low + int(
+            ((target - arr[low]) * (high - low))
+            / (arr[high] - arr[low])
+        )
+
+        if arr[pos] == target:
+            return pos, probes
+        elif arr[pos] < target:
+            low = pos + 1
+        else:
+            high = pos - 1
+
+    return -1, probes
+
+
+def binary_search(arr, target):
+    low = 0
+    high = len(arr) - 1
+    probes = 0
+
+    while low <= high:
+        probes += 1
+
+        mid = (low + high) // 2
+
+        if arr[mid] == target:
+            return mid, probes
+        elif arr[mid] < target:
+            low = mid + 1
+        else:
+            high = mid - 1
+
+    return -1, probes
+
+
+# Student roll numbers
+roll_numbers = list(range(1, 10001))
+
+target = int(input("Enter roll number to search: "))
+
+idx_i, probes_i = interpolation_search(roll_numbers, target)
+idx_b, probes_b = binary_search(roll_numbers, target)
+
+print("\nInterpolation Search")
+print("Position:", idx_i)
+print("Probes:", probes_i)
+
+print("\nBinary Search")
+print("Position:", idx_b)
+print("Probes:", probes_b)
