@@ -1,65 +1,43 @@
-import math
+import random
 
-def interpolation_search(arr, target):
+def interpolation_search_float(arr, target):
     low = 0
     high = len(arr) - 1
-    probes = 0
+    comparisons = 0
 
     while low <= high and arr[low] <= target <= arr[high]:
-        probes += 1
+        comparisons += 1
 
         if low == high:
-            if arr[low] == target:
-                return low, probes
-            return -1, probes
+            if abs(arr[low] - target) < 1e-9:
+                return low, comparisons
+            return -1, comparisons
 
         pos = low + int(
             ((target - arr[low]) * (high - low))
             / (arr[high] - arr[low])
         )
 
-        if arr[pos] == target:
-            return pos, probes
+        if abs(arr[pos] - target) < 1e-9:
+            return pos, comparisons
         elif arr[pos] < target:
             low = pos + 1
         else:
             high = pos - 1
 
-    return -1, probes
+    return -1, comparisons
 
 
-def binary_search(arr, target):
-    low = 0
-    high = len(arr) - 1
-    probes = 0
+sizes = [10000, 50000, 100000]
 
-    while low <= high:
-        probes += 1
+print(f"{'Size':<10}{'Comparisons'}")
+print("-" * 25)
 
-        mid = (low + high) // 2
+for size in sizes:
+    arr = sorted(random.uniform(0.0, 1000.0) for _ in range(size))
 
-        if arr[mid] == target:
-            return mid, probes
-        elif arr[mid] < target:
-            low = mid + 1
-        else:
-            high = mid - 1
+    target = arr[random.randint(0, size - 1)]
 
-    return -1, probes
+    index, comparisons = interpolation_search_float(arr, target)
 
-
-# Student roll numbers
-roll_numbers = list(range(1, 10001))
-
-target = int(input("Enter roll number to search: "))
-
-idx_i, probes_i = interpolation_search(roll_numbers, target)
-idx_b, probes_b = binary_search(roll_numbers, target)
-
-print("\nInterpolation Search")
-print("Position:", idx_i)
-print("Probes:", probes_i)
-
-print("\nBinary Search")
-print("Position:", idx_b)
-print("Probes:", probes_b)
+    print(f"{size:<10}{comparisons}")
