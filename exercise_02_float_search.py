@@ -4,6 +4,7 @@
   "metadata": {
     "colab": {
       "provenance": [],
+      "toc_visible": true,
       "authorship_tag": "ABX9TyPVBP9sFmU/DMSLhMtn3UiC",
       "include_colab_link": true
     },
